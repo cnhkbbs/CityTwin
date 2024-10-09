@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Common
 {
     // ÊµÀı»ùÀà
