@@ -14,5 +14,7 @@ namespace Config
         public string user = "client";
         [Header("密码")]
         public string password = "client";
+        [Header("数据更新间隔")]
+        public int updateInterval = 5;
     }
 }

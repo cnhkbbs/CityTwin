@@ -2,22 +2,32 @@ using UnityEngine;
 
 namespace Common
 {
-    // 实例基类
-    public class SingletonBase<T> where T: SingletonBase<T>
+    // 泛型基类用于实现单例模式
+    public abstract class SingletonBase<T> : MonoBehaviour where T : SingletonBase<T>, new()
     {
-        private static T instance;
+        private static T _instance;
+        private static object _lock = new object();
 
-        // 获取单例实例
         public static T Instance
         {
             get
             {
-                if (instance == null)
+                if (_instance == null)
                 {
-                    instance = System.Activator.CreateInstance(typeof(T), true) as T;
+                    lock (_lock)
+                    {
+                        if (_instance == null)
+                        {
+                            _instance = new T();
+                            _instance.Awake();
+                        }
+                    }
                 }
-                return instance;
+
+                return _instance;
             }
         }
+
+        protected virtual void Awake() { } // 在子类中覆盖此方法进行必要的初始化
     }
 }
