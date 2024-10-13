@@ -8,12 +8,12 @@ namespace DataManagerModule
     public class DataManager : SingletonBase<DataManager>
     {
         Dictionary<string, BaseData> dataCacheDic;
-        SqlConfig sqlConfig;
 
         private float updateInterval;
+        SqlConfig sqlConfig;
         protected override void Awake()
         {
-            sqlConfig = new SqlConfig();
+            sqlConfig = ScriptableObject.CreateInstance<SqlConfig>();
             SqlAccess sql = new SqlAccess(sqlConfig.server, sqlConfig.port, sqlConfig.user, sqlConfig.password, sqlConfig.database);
             updateInterval = sqlConfig.updateInterval;
         }

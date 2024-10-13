@@ -28,7 +28,6 @@ namespace Common
         protected virtual void Awake()
         {
             DontDestroyOnLoad(gameObject);
-            // 检查是否存在重复的实例
             if (instance == null)
             {
                 instance = this as T;

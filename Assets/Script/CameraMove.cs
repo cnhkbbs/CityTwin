@@ -11,10 +11,7 @@ public class CameraMove : MonoBehaviour
     private float z = 0f;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+
 
     // Update is called once per frame
     void Update()
