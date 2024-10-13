@@ -13,7 +13,6 @@ namespace DataManagerModule
         private float updateInterval;
         protected override void Awake()
         {
-            base.Awake();
             sqlConfig = new SqlConfig();
             SqlAccess sql = new SqlAccess(sqlConfig.server, sqlConfig.port, sqlConfig.user, sqlConfig.password, sqlConfig.database);
             updateInterval = sqlConfig.updateInterval;

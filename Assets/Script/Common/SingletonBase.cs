@@ -2,32 +2,41 @@ using UnityEngine;
 
 namespace Common
 {
-    // 泛型基类用于实现单例模式
-    public abstract class SingletonBase<T> : MonoBehaviour where T : SingletonBase<T>, new()
+    public class SingletonBase<T> : MonoBehaviour where T : MonoBehaviour
     {
-        private static T _instance;
-        private static object _lock = new object();
-
+        private static T instance;
         public static T Instance
         {
             get
             {
-                if (_instance == null)
+                if (instance == null)
                 {
-                    lock (_lock)
+                    // 在场景中查找是否已存在该类型的实例
+                    instance = FindObjectOfType<T>();
+                    // 如果场景中不存在该类型的实例，则创建一个新的GameObject并添加该组件
+                    if (instance == null)
                     {
-                        if (_instance == null)
-                        {
-                            _instance = new T();
-                            _instance.Awake();
-                        }
+                        GameObject singletonObject = new GameObject(typeof(T).Name + "_Singleton");
+                        instance = singletonObject.AddComponent<T>();
+                        DontDestroyOnLoad(singletonObject);
                     }
                 }
-
-                return _instance;
+                return instance;
             }
         }
 
-        protected virtual void Awake() { } // 在子类中覆盖此方法进行必要的初始化
+        protected virtual void Awake()
+        {
+            DontDestroyOnLoad(gameObject);
+            // 检查是否存在重复的实例
+            if (instance == null)
+            {
+                instance = this as T;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 }
