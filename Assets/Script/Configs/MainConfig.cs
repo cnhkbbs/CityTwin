@@ -15,6 +15,6 @@ namespace Config
         [Header("密码")]
         public string password = "client";
         [Header("数据更新间隔")]
-        public int updateInterval = 5;
+        public float updateInterval = 5f;
     }
 }

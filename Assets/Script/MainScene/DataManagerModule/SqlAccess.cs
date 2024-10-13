@@ -2,7 +2,6 @@ using MySql.Data.MySqlClient;
 using UnityEngine;
 using System;
 using System.Data;
-using System.Text;
 
 namespace DataManagerModule
 {
